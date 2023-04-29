@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  "cross platform app for iOS & Android",
+                  "Text-to-speech app for iOS & Android",
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
