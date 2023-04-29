@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   get: ^4.6.5
-  get_storage: ^2.1.1
+  get_storage:
   text_to_speech: ^0.2.3
   flutter:
     sdk: flutter
