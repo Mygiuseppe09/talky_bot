@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,21 +12,12 @@ class TtsBody extends StatelessWidget {
     // recupero testo dal controller
     final String text = textController.text.trim();
 
-    // preparo le impostazione e parte lo speaker
-    tts.value.text = text;
-    await tts.value.ttsInstance.setVolume(tts.value.volume);
-    await tts.value.ttsInstance.setRate(tts.value.rate);
-    await tts.value.ttsInstance.setPitch(tts.value.pitch);
-    tts.value.play();
+    tts.value.play(text);
 
     // salvare il testo nella cronologia
     if (text.isNotEmpty && !chronology.value.chronologyList.contains(text)) {
-
       chronology.value.addNew(text);
-
-      GetStorage()
-          .write("chronology", chronology.value.chronologyList)
-          .then((_) => log("salvato"));
+      GetStorage().write("chronology", chronology.value.chronologyList);
     }
   }
 
@@ -36,8 +26,7 @@ class TtsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus
-          ?.unfocus(), // per nascondere la tastiera al click fuori dall'input del testo
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(), // per nascondere la tastiera al click fuori dall'input del testo
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(

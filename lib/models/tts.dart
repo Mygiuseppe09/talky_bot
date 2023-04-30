@@ -6,7 +6,6 @@ final tts = Tts().obs;
 class Tts {
   TextToSpeech ttsInstance = TextToSpeech();
   bool isPlaying = false;
-  String text = "";
   double volume = 1.0; // where 0 is silence, and 1 is the maximum volume
   double rate =
       1.0; // rate range: 0-2, 1.0 is the normal and default speech rate
@@ -28,10 +27,13 @@ class Tts {
     tts.refresh();
   }
 
-  void play() {
+  void play(String text) {
     isPlaying = true;
     tts.refresh();
 
+    ttsInstance.setVolume(volume);
+    ttsInstance.setPitch(pitch);
+    ttsInstance.setRate(rate);
     ttsInstance.speak(text);
   }
 

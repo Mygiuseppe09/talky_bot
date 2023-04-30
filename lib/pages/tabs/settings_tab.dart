@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_speak/models/tts.dart';
+import 'package:to_speak/pages/license_attribution.dart';
 
 class SettingsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LicenseAndAttribution())),
+        backgroundColor: Colors.black,
+          child: Icon(Icons.question_mark, color: Colors.white),
+        ),
       body: Obx(() => // rendiamo il tutto "osservabile" per gestire i cambiamenti 
       Center(
         child: Column(
@@ -13,13 +19,12 @@ class SettingsBody extends StatelessWidget {
           children: [
 
             SizedBox( // icona robottino
-              width: 170,
-              height: 170,
+              width: 150,
+              height: 150,
               child: Image.asset("images/bot.png"),
             ),
             
-            SizedBox(height: 30,), // un po' di distanza
-
+            SizedBox(height: 20,), // un po' di distanza
 
             Column( // blocco volume
               children: [
@@ -89,6 +94,8 @@ class SettingsBody extends StatelessWidget {
                 )
               ],
             ),
+
+            SizedBox(height: 40,), // un po' di distanza
 
           ],
         ),

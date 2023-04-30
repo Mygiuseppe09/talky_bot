@@ -27,14 +27,9 @@ class App extends StatelessWidget {
             centerTitle: true,
           ),
         ),
-        initialRoute: "/",
-        onGenerateRoute: (settings) {
-          final routes = {
-            "/": (_) => HomePage(),
-          };
+        home: HomePage(), // la pagina iniziale... (routing locale)
+        debugShowCheckedModeBanner: false // per togliere il banner Debug
+        ); 
 
-          return MaterialPageRoute(builder: routes[settings.name]!);
-        },
-        debugShowCheckedModeBanner: false);
   }
 }

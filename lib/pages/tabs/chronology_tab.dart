@@ -1,29 +1,54 @@
-import 'dart:developer';
-
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:to_speak/models/chronology.dart';
 
-class ChronologyBody extends StatelessWidget {
+class ChronologyBody extends StatefulWidget {
+
+  @override
+  State<ChronologyBody> createState() => _ChronologyBodyState();
+}
+
+class _ChronologyBodyState extends State<ChronologyBody> {
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      body: Obx(() => ListView.separated(
+    if (chronology.value.chronologyList.isEmpty) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "images/empty.png", 
+                color: Colors.black54,
+                scale: 2,
+              ),
+              SizedBox(height: 30),
+              Text("Cronologia vuota", style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold
+              ),),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Scaffold(
+        backgroundColor: Colors.grey.shade200,
+        body: Obx(() => ListView.separated(
             padding: EdgeInsets.all(5),
             itemCount: chronology.value.chronologyList.length,
             itemBuilder: (_, index) => GestureDetector(
               onTap: () {
-                FlutterClipboard.copy(chronology.value.chronologyList[index]).then(
-                    (_) => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            '''"${chronology.value.chronologyList[index]}" è stato copiato negli appunti''',
-                                  textAlign: TextAlign.center,
-                          )
-                        )
-                      ));
+                FlutterClipboard.copy(chronology.value.chronologyList[index])
+                    .then((_) =>
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                          '''"${chronology.value.chronologyList[index]}" è stato copiato negli appunti''',
+                          textAlign: TextAlign.center,
+                        ))));
               },
               child: Card(
                 elevation: 2,
@@ -40,11 +65,15 @@ class ChronologyBody extends StatelessWidget {
               height: 5,
             ),
           )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => chronology.value.clear(),
-        backgroundColor: Colors.black,
-        child: Icon(Icons.delete, color: Colors.white),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () { 
+            chronology.value.clear();
+            setState(() {}); // richiama il metodo build()
+          },
+          backgroundColor: Colors.black,
+          child: Icon(Icons.delete, color: Colors.white),
+        ),
+      );
+    }
   }
 }
