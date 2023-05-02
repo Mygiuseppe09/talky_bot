@@ -11,8 +11,8 @@ class MyCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25.0),
       ),
-      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-      elevation: 5,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      elevation: 1,
       child: Padding(padding: EdgeInsets.all(10), child: child)
     );
   }

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:to_speak/pages/home_page.dart';
+import 'package:ToSpeak/pages/home_page.dart';
 
 void main() async {
+
+  // settiamo la barra delle notifiche al colore bianco puro
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor:
-          Colors.white, // setta la barra delle notifiche al colore bianco puro
+          Colors.white, 
       statusBarIconBrightness: Brightness.dark));
+
+  // la nostra app permette la sola visualizzazione verticale
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   await GetStorage.init();
 
@@ -23,7 +29,7 @@ class App extends StatelessWidget {
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
-            elevation: 7,
+            elevation: 1,
             centerTitle: true,
           ),
         ),

@@ -6,8 +6,14 @@ final chronology = Chronology().obs;
 class Chronology {
   List<String> chronologyList = [];
 
+  void copy(String text) {
+    chronologyList.add(text);
+
+    chronology.refresh();
+  }
+
   void addNew(String newText) {
-    chronologyList.add(newText);
+    chronologyList.insert(0, newText);
 
     chronology.refresh();
   }
@@ -15,7 +21,7 @@ class Chronology {
   void clear() {
     GetStorage().erase(); // cancelliamo lo storage locale
     chronologyList.clear();
-    
+
     chronology.refresh();
   }
 }
