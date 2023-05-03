@@ -23,24 +23,22 @@ dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
 
 flutter_launcher_icons:
-  image_path: "images/logo.png"
+  image_path: "images/logo_ios.png" #path per iOS (normale)
+  image_path_android: "images/logo_android.png" #path per Android (zoomed out)
   android: true
   ios: true
   remove_alpha_ios: true
-  adaptive_icon_background: "images/white.png" #android
-  adaptive_icon_foreground: "images/logo.png" #android
+  adaptive_icon_background: "images/white.png" 
+  adaptive_icon_foreground: "images/logo_android.png" # la stessa di quella definita prima
+  # gli ultimi due vanno messi per rendere l'icona android adattiva
   
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
+  
 flutter:
   uses-material-design: true
   assets:
     - images/bot.png
     - images/empty.png
     - images/flutter.png
-    - images/logo.png
     - images/flaticon.png
     - images/text-to-speech.png
     - images/getx.png

@@ -4,12 +4,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:ToSpeak/pages/home_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   // settiamo la barra delle notifiche al colore bianco puro
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor:
-          Colors.white, 
-      statusBarIconBrightness: Brightness.dark));
+      statusBarColor: Colors.white, statusBarIconBrightness: Brightness.dark));
 
   // la nostra app permette la sola visualizzazione verticale
   SystemChrome.setPreferredOrientations(
@@ -35,7 +34,6 @@ class App extends StatelessWidget {
         ),
         home: HomePage(), // la pagina iniziale... (routing locale)
         debugShowCheckedModeBanner: false // per togliere il banner Debug
-        ); 
-
+        );
   }
 }
