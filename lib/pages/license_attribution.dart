@@ -37,7 +37,7 @@ class LicenseAndAttribution extends StatelessWidget {
             MyListTile(
               imagePath: "images/getx.png",
               title: "GetX",
-              description: "lo stato dei componenti e la cronologia dei testi sintetizzati sono stati gestiti attraverso questa libreria, consulatbile al link: https://pub.dev/packages/get#about-get",
+              description: "Lo stato dei componenti e la cronologia dei testi sintetizzati sono stati gestiti attraverso questa libreria, consultabile al link: https://pub.dev/packages/get#about-get",
             )
             
           ],
