@@ -6,6 +6,7 @@ import 'package:TalkyBot/pages/tabs/settings_tab.dart';
 import 'package:TalkyBot/pages/tabs/ttstt_tab.dart';
 import 'package:TalkyBot/models/tts.dart';
 import 'package:TalkyBot/models/chronology.dart';
+import 'package:lottie/lottie.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -42,8 +43,10 @@ class _HomePageState extends State<HomePage> {
         length: 3,
         child: Scaffold(
             appBar: AppBar(
+              centerTitle: true,
               toolbarHeight: 80,
-              title: Column(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "TalkyBot",
@@ -52,14 +55,11 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text(
-                    "Text-to-speech app for iOS & Android",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black54),
-                  )
+                  
+                  Lottie.asset("animated/bot_animation.json",
+                  width: 50,
+                  height: 50,
+                  ),
                 ],
               ),
               bottom: TabBar(
