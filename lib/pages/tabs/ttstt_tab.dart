@@ -48,16 +48,15 @@ class _TtsttBodyState extends State<TtsttBody> {
                     padding: const EdgeInsets.all(8.0),
                     // il contenuto varia in funzione del listen
                     child: Obx(
-                      () => stt.value.sttInstance.isListening
+                      () => stt.value.sttInstance.isListening && stt.value.getStatus.contains("listening")
                           ? Column(mainAxisSize: MainAxisSize.min, children: [
                               listeningGif(),
-                              showListenedText(),
+                              listenedText(),
                               SizedBox(height: 20), // separè
                             ])
 
                           // se non sta ascoltando ma il testo è vuoto
-                          : stt.value.getWords.isEmpty &&
-                                  !stt.value.sttInstance.hasRecognized
+                          : stt.value.getWords.isEmpty && stt.value.getStatus.contains("done")
                               ? Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -72,7 +71,7 @@ class _TtsttBodyState extends State<TtsttBody> {
                               : Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    showListenedText(),
+                                    listenedText(),
                                     confirmButton(),
                                     SizedBox(height: 15),
                                     Divider(),
@@ -211,7 +210,7 @@ class _TtsttBodyState extends State<TtsttBody> {
         stt.value.clear();
       });
 
-  Widget showListenedText() => Padding(
+  Widget listenedText() => Padding(
         padding: const EdgeInsets.all(24.0),
         child: Text(
           stt.value.getWords,
