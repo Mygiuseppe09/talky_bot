@@ -1,8 +1,9 @@
+import 'package:ToSpeak/models/stt.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ToSpeak/pages/tabs/chronology_tab.dart';
 import 'package:ToSpeak/pages/tabs/settings_tab.dart';
-import 'package:ToSpeak/pages/tabs/tts_tab.dart';
+import 'package:ToSpeak/pages/tabs/ttstt_tab.dart';
 import 'package:ToSpeak/models/tts.dart';
 import 'package:ToSpeak/models/chronology.dart';
 
@@ -14,7 +15,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    // inizializzo il tts con la lingua dell'utente
+    // inizializzo lo stt
+    stt.value.initSpeechState();
+
+    // inizializzo il tts
     tts.value.initLanguage();
 
     // recupero lo storage
@@ -71,7 +75,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 // è importante l'ordine
                 ChronologyBody(),
-                TtsBody(),
+                TtsttBody(),
                 SettingsBody()
               ],
             )),

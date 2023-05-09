@@ -1,7 +1,7 @@
 name: ToSpeak
 description: An App for iOS & Android text-to-speech.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -13,14 +13,18 @@ dependencies:
   get: ^4.6.5
   get_storage:
   text_to_speech: ^0.2.3
+  speech_to_text: ^6.1.1
+  open_apps_settings: ^0.0.4
+  lottie: ^2.3.2
   flutter:
     sdk: flutter
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.13.1"
+  
 
 flutter_launcher_icons:
   image_path: "images/logo_ios.png" #path per iOS (normale)
@@ -36,9 +40,14 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
+    - animated/ear.gif
+    - animated/lottie_ok.json
     - images/bot.png
     - images/empty.png
     - images/flutter.png
     - images/flaticon.png
     - images/text-to-speech.png
     - images/getx.png
+    - images/cancel.png
+    - images/ok.png
+    - images/bad_bot.png

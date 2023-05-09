@@ -25,7 +25,7 @@ class LicenseAndAttribution extends StatelessWidget {
             MyListTile(
               imagePath: "images/flaticon.png",
               title: "Flaticon",
-              description: "Molte delle icone utilizzate nell'app sono state recuperate su Flaticon.com, si ringraziano i seguenti autori: Freepik, kerismaker, Smashicons",
+              description: "Molte delle icone utilizzate nell'app sono state recuperate su Flaticon.com, si ringraziano i seguenti autori: Freepik, kerismaker, Smashicons, kliwir art",
             ),
 
             MyListTile(
