@@ -211,7 +211,7 @@ class _TtsttBodyState extends State<TtsttBody> {
       });
 
   Widget listenedText() => Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(10.0),
         child: Text(
           stt.value.getWords,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

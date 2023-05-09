@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:get/state_manager.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -36,6 +34,7 @@ class Stt {
 
     stt.refresh();
   }
+
 
   ///
   /// RELATIVI ALL'INIT
