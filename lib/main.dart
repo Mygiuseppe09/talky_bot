@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ToSpeak/pages/home_page.dart';
+import 'package:TalkyBot/pages/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: "ToSpeak",
+        title: "TalkyBot",
         theme: ThemeData(
           appBarTheme: AppBarTheme(
             backgroundColor: Colors.white,

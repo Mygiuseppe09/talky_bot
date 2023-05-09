@@ -1,11 +1,11 @@
-import 'package:ToSpeak/models/stt.dart';
+import 'package:TalkyBot/models/stt.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ToSpeak/pages/tabs/chronology_tab.dart';
-import 'package:ToSpeak/pages/tabs/settings_tab.dart';
-import 'package:ToSpeak/pages/tabs/ttstt_tab.dart';
-import 'package:ToSpeak/models/tts.dart';
-import 'package:ToSpeak/models/chronology.dart';
+import 'package:TalkyBot/pages/tabs/chronology_tab.dart';
+import 'package:TalkyBot/pages/tabs/settings_tab.dart';
+import 'package:TalkyBot/pages/tabs/ttstt_tab.dart';
+import 'package:TalkyBot/models/tts.dart';
+import 'package:TalkyBot/models/chronology.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
               title: Column(
                 children: [
                   Text(
-                    "ToSpeak",
+                    "TalkyBot",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

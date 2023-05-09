@@ -1,11 +1,11 @@
-import 'package:ToSpeak/components/my_icon_button.dart';
-import 'package:ToSpeak/components/my_large_elevated_button.dart';
+import 'package:TalkyBot/components/my_icon_button.dart';
+import 'package:TalkyBot/components/my_large_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:ToSpeak/models/chronology.dart';
-import 'package:ToSpeak/models/tts.dart';
-import 'package:ToSpeak/models/stt.dart';
+import 'package:TalkyBot/models/chronology.dart';
+import 'package:TalkyBot/models/tts.dart';
+import 'package:TalkyBot/models/stt.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_apps_settings/open_apps_settings.dart';
 import 'package:open_apps_settings/settings_enum.dart';

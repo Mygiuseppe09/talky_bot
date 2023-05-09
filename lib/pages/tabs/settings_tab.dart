@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ToSpeak/models/tts.dart';
-import 'package:ToSpeak/pages/license_attribution.dart';
+import 'package:TalkyBot/models/tts.dart';
+import 'package:TalkyBot/pages/license_attribution.dart';
 
 import '../../components/my_slider.dart';
 

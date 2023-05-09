@@ -14,7 +14,7 @@
     </queries>
     
    <application
-        android:label="ToSpeak"
+        android:label="TalkyBot"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

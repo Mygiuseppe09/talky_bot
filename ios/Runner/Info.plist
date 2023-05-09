@@ -3,6 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
+	<string>L'app usa il riconoscimento vocale per poter inserire del testo senza la tastiera</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>L'app necessita il microfono per il motore di riconoscimento vocale</string>
+	<key>NSMicrophoneUsageDescription</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>ToSpeak</string>
@@ -13,7 +17,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>ToSpeak</string>
+	<string>TalkyBot</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

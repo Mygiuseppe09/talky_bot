@@ -1,8 +1,8 @@
-import 'package:ToSpeak/components/my_card.dart';
+import 'package:TalkyBot/components/my_card.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:ToSpeak/models/chronology.dart';
+import 'package:TalkyBot/models/chronology.dart';
 
 class ChronologyBody extends StatefulWidget {
   @override
