@@ -215,11 +215,11 @@ class _TtsttBodyState extends State<TtsttBody> {
       });
 
   Widget listenedText(BuildContext context) => 
-    Obx(() => stt.value.getWords.length > 250 
+    Obx(() => stt.value.getWords.length > 300 
       ? Container(
         padding: const EdgeInsets.all(10.0),
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.4,
         child: Expanded(
           child: SingleChildScrollView(
             // SingleChildScrollView should be
