@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:TalkyBot/components/my_icon_button.dart';
 import 'package:TalkyBot/components/my_large_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:TalkyBot/models/chronology.dart';
 import 'package:TalkyBot/models/tts.dart';
 import 'package:TalkyBot/models/stt.dart';
-import 'package:lottie/lottie.dart';
 import 'package:open_apps_settings/open_apps_settings.dart';
 import 'package:open_apps_settings/settings_enum.dart';
 
@@ -54,7 +51,7 @@ class _TtsttBodyState extends State<TtsttBody> {
                               stt.value.getStatus.contains("listening")
                           ? Column(mainAxisSize: MainAxisSize.min, children: [
                               listeningGif(),
-                              listenedText(),
+                              listenedText(context),
                               SizedBox(height: 20), // separè
                             ])
 
@@ -75,7 +72,7 @@ class _TtsttBodyState extends State<TtsttBody> {
                               : Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    listenedText(),
+                                    listenedText(context),
                                     confirmButton(),
                                     SizedBox(height: 15),
                                     Divider(),
@@ -217,13 +214,32 @@ class _TtsttBodyState extends State<TtsttBody> {
         stt.value.clear();
       });
 
-  Widget listenedText() => Padding(
+  Widget listenedText(BuildContext context) => 
+    Obx(() => stt.value.getWords.length > 250 
+      ? Container(
         padding: const EdgeInsets.all(10.0),
-        child: Text(
-          stt.value.getWords,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      );
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.35,
+        child: Expanded(
+          child: SingleChildScrollView(
+            // SingleChildScrollView should be
+            // wrapped in an Expanded Widget
+            scrollDirection: Axis.vertical,
+            child: Text(
+                  stt.value.getWords,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+          )
+         ),
+      )
+
+      : Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            stt.value.getWords,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+        )); 
 
   Widget continueButton() => MyLargeElevatedButton(
         backgroundColor: Colors.green.shade200,
