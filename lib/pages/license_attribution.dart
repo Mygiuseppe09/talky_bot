@@ -13,7 +13,7 @@ class LicenseAndAttribution extends StatelessWidget {
         elevation: 0,
       ),
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
 
             MyListTile(
@@ -31,14 +31,21 @@ class LicenseAndAttribution extends StatelessWidget {
             MyListTile(
               imagePath: "images/text-to-speech.png",
               title: "Servizio text-to-speech",
-              description: "Si ringrazia lo sviluppatore https://github.com/ixsans per aver creato e pubblicato la seguente libreria: https://pub.dev/packages/text_to_speech ",
+              description: "Si ringrazia lo sviluppatore https://github.com/ixsans per aver creato e pubblicato la seguente libreria: https://pub.dev/packages/text_to_speech",
             ),
 
             MyListTile(
               imagePath: "images/getx.png",
               title: "GetX",
               description: "Lo stato dei componenti e la cronologia dei testi sintetizzati sono stati gestiti attraverso questa libreria, consultabile al link: https://pub.dev/packages/get#about-get",
-            )
+            ),
+
+            MyListTile(
+              imagePath: "images/stt.png",
+              title: "Servizio speech-to-text",
+              description: "Si ringrazia lo sviluppatore https://github.com/csdcorp per aver creato e pubblicato la seguente libreria: https://pub.dev/packages/speech_to_text",
+            ),
+           
             
           ],
         )

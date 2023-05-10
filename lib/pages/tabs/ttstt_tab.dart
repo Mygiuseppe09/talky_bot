@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:TalkyBot/components/my_icon_button.dart';
 import 'package:TalkyBot/components/my_large_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:focus_detector_v2/focus_detector_v2.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:TalkyBot/models/chronology.dart';
@@ -33,7 +36,6 @@ class _TtsttBodyState extends State<TtsttBody> {
 
   void onStopPessed() => tts.value.stop();
 
-
   void onMicPressed(BuildContext context) {
     if (stt.value.sttInstance.isAvailable) {
       stt.value.clear();
@@ -48,7 +50,8 @@ class _TtsttBodyState extends State<TtsttBody> {
                     padding: const EdgeInsets.all(8.0),
                     // il contenuto varia in funzione del listen
                     child: Obx(
-                      () => stt.value.sttInstance.isListening && stt.value.getStatus.contains("listening")
+                      () => stt.value.sttInstance.isListening &&
+                              stt.value.getStatus.contains("listening")
                           ? Column(mainAxisSize: MainAxisSize.min, children: [
                               listeningGif(),
                               listenedText(),
@@ -56,7 +59,8 @@ class _TtsttBodyState extends State<TtsttBody> {
                             ])
 
                           // se non sta ascoltando ma il testo è vuoto
-                          : stt.value.getWords.isEmpty && stt.value.getStatus.contains("done")
+                          : stt.value.getWords.isEmpty &&
+                                  stt.value.getStatus.contains("done")
                               ? Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -86,7 +90,12 @@ class _TtsttBodyState extends State<TtsttBody> {
       showDialog(
           context: context,
           builder: (context) => Dialog(
-                child: speechToTextNotAvailable(),
+                child: FocusDetector(
+                    onFocusLost: () {
+                      // siamo usciti dall'app mentre è aperto il Dialog d'errore
+                      Navigator.pop(context);
+                    },
+                    child: speechToTextNotAvailable()),
               ));
     }
   }
@@ -160,7 +169,7 @@ class _TtsttBodyState extends State<TtsttBody> {
   ///
 
   Widget boldText(String text) => Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(16.0),
         child: Text(text,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
       );
@@ -193,12 +202,10 @@ class _TtsttBodyState extends State<TtsttBody> {
       foregroundColor: Colors.white,
       text: "Ripeti",
       onPressed: () {
-            stt.value.clear();
-            stt.value.sttInstance.listen(
-                onResult: (result) => stt.value.recognizedWords(result));
-          }
-      );
-
+        stt.value.clear();
+        stt.value.sttInstance
+            .listen(onResult: (result) => stt.value.recognizedWords(result));
+      });
 
   Widget cancelButton() => MyLargeElevatedButton(
       backgroundColor: Colors.red.shade100,
@@ -225,22 +232,6 @@ class _TtsttBodyState extends State<TtsttBody> {
         onPressed: () => Navigator.pop(context),
       );
 
-  showPermissionGrantedDialog(BuildContext context) => showDialog(
-      context: context,
-      builder: (context) => Dialog(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Lottie.asset("animated/lottie_ok.json"),
-                  boldText("Permessi microfono ottenuti!"),
-                  continueButton(),
-                ],
-              ),
-            ),
-          ));
-
   Widget onAppSettingButton() => MyLargeElevatedButton(
         backgroundColor: Colors.green.shade200,
         foregroundColor: Colors.green.shade900,
@@ -248,14 +239,6 @@ class _TtsttBodyState extends State<TtsttBody> {
         onPressed: () {
           OpenAppsSettings.openAppsSettings(
             settingsCode: SettingsCode.APP_SETTINGS,
-            onCompletion: () {
-              Navigator.pop(context);
-              stt.value.initSpeechState().then((_) {
-                if (stt.value.sttInstance.isAvailable) {
-                  showPermissionGrantedDialog(context);
-                }
-              });
-            },
           );
         },
       );

@@ -1,5 +1,5 @@
 name: TalkyBot
-description: An App for iOS & Android text-to-speech.
+description: An App for iOS & Android text-to-speech and speech-to-text.
 
 publish_to: 'none'
 
@@ -15,6 +15,7 @@ dependencies:
   text_to_speech: ^0.2.3
   speech_to_text: ^6.1.1
   open_apps_settings: ^0.0.4
+  focus_detector_v2: ^3.0.0+2
   lottie: ^2.3.2
   flutter:
     sdk: flutter
@@ -33,9 +34,10 @@ flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  adaptive_icon_background: "images/white.png" 
-  adaptive_icon_foreground: "images/logo_android.png" # la stessa di quella definita prima
   # gli ultimi due vanno messi per rendere l'icona android adattiva
+  adaptive_icon_background: "images/white.png" 
+  adaptive_icon_foreground: "images/logo_android.png"
+  
   
   
 flutter:
@@ -53,3 +55,4 @@ flutter:
     - images/cancel.png
     - images/ok.png
     - images/bad_bot.png
+    - images/stt.png
