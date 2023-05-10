@@ -13,17 +13,18 @@ final stt = Stt().obs;
 // al variare del valore di una determinata informazione
 
 class Stt {
-  final SpeechToText sttInstance = SpeechToText();
+  final SpeechToText _sttInstance = SpeechToText();
   String _lastWords = "";
   String _lastError = "";
   String _lastStatus = "";
 
+  SpeechToText get getInstance => _sttInstance;
   String get getWords => _lastWords;
   String get getError => _lastError;
   String get getStatus => _lastStatus;
 
   Future<void> initSpeechState() async {
-    await sttInstance.initialize(
+    await _sttInstance.initialize(
         onError: errorListener, onStatus: statusListener);
   }
 
@@ -37,7 +38,6 @@ class Stt {
 
     stt.refresh();
   }
-
 
   ///
   /// RELATIVI ALL'INIT
@@ -87,5 +87,4 @@ class Stt {
         text: "CONTINUA",
         onPressed: () => Navigator.pop(context),
       );
-
 }

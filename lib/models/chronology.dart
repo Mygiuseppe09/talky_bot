@@ -4,23 +4,25 @@ import 'package:get_storage/get_storage.dart';
 final chronology = Chronology().obs;
 
 class Chronology {
-  List<String> chronologyList = [];
+  final List<String> _chronologyList = [];
+
+  List<String> get getChronologyList => _chronologyList;
 
   void copy(String text) {
-    chronologyList.add(text);
+    _chronologyList.add(text);
 
     chronology.refresh();
   }
 
   void addNew(String newText) {
-    chronologyList.insert(0, newText);
+    _chronologyList.insert(0, newText);
 
     chronology.refresh();
   }
 
   void clear() {
     GetStorage().erase(); // cancelliamo lo storage locale
-    chronologyList.clear();
+    _chronologyList.clear();
 
     chronology.refresh();
   }

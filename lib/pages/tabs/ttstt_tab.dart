@@ -25,18 +25,18 @@ class _TtsttBodyState extends State<TtsttBody> {
     tts.value.play(text);
 
     // salvare il testo nella cronologia
-    if (text.isNotEmpty && !chronology.value.chronologyList.contains(text)) {
+    if (text.isNotEmpty && !chronology.value.getChronologyList.contains(text)) {
       chronology.value.addNew(text);
-      GetStorage().write("chronology", chronology.value.chronologyList);
+      GetStorage().write("chronology", chronology.value.getChronologyList);
     }
   }
 
   void onStopPessed() => tts.value.stop();
 
   void onMicPressed(BuildContext context) {
-    if (stt.value.sttInstance.isAvailable) {
+    if (stt.value.getInstance.isAvailable) {
       stt.value.clear();
-      stt.value.sttInstance
+      stt.value.getInstance
           .listen(onResult: (result) => stt.value.recognizedWords(result));
       showDialog(
           // disattiviamo il tap fuori dal dialog per uscire
@@ -47,7 +47,7 @@ class _TtsttBodyState extends State<TtsttBody> {
                     padding: const EdgeInsets.all(8.0),
                     // il contenuto varia in funzione del listen
                     child: Obx(
-                      () => stt.value.sttInstance.isListening &&
+                      () => stt.value.getInstance.isListening &&
                               stt.value.getStatus.contains("listening")
                           ? Column(mainAxisSize: MainAxisSize.min, children: [
                               listeningGif(),
@@ -200,7 +200,7 @@ class _TtsttBodyState extends State<TtsttBody> {
       text: "Ripeti",
       onPressed: () {
         stt.value.clear();
-        stt.value.sttInstance
+        stt.value.getInstance
             .listen(onResult: (result) => stt.value.recognizedWords(result));
       });
 
@@ -210,7 +210,7 @@ class _TtsttBodyState extends State<TtsttBody> {
       text: "Annulla",
       onPressed: () {
         Navigator.pop(context);
-        stt.value.sttInstance.cancel();
+        stt.value.getInstance.cancel();
         stt.value.clear();
       });
 

@@ -47,9 +47,9 @@ class _HomePageState extends State<HomePage> {
         /// esce dall'app per aprire le impostazioni e dare i permessi,
         /// quando rientra l'app deve agire di conseguenza
 
-        if (!stt.value.sttInstance.isAvailable) {
+        if (!stt.value.getInstance.isAvailable) {
           stt.value.initSpeechState().then((_) {
-            if (stt.value.sttInstance.isAvailable) {
+            if (stt.value.getInstance.isAvailable) {
               Stt.showPermissionGrantedDialog(context);
             }
           });

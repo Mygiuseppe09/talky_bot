@@ -45,8 +45,13 @@ class LicenseAndAttribution extends StatelessWidget {
               title: "Servizio speech-to-text",
               description: "Si ringrazia lo sviluppatore https://github.com/csdcorp per aver creato e pubblicato la seguente libreria: https://pub.dev/packages/speech_to_text",
             ),
+
+            MyListTile(
+              imagePath: "images/gesture_detector.png",
+              title: "Focus Detector",
+              description: "Si ringrazia lo sviluppatore https://github.com/irfnyas per aver creato e pubblicato la seguente libreria: https://pub.dev/packages/focus_detector_v2",
+            ),
            
-            
           ],
         )
       ),

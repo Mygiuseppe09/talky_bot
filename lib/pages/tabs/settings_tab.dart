@@ -40,9 +40,9 @@ class SettingsBody extends StatelessWidget {
                 subtitle: "regola il volume del lettore artificale",
                 min: 0,
                 max: 1,
-                value: tts.value.volume,
+                value: tts.value.getVolume,
                 onChanged: (value) => tts.value.setVolume(value),
-                displayedValue: (tts.value.volume * 100).toStringAsFixed(0),
+                displayedValue: (tts.value.getVolume * 100).toStringAsFixed(0),
               ),
 
               MySlider(
@@ -52,8 +52,8 @@ class SettingsBody extends StatelessWidget {
                     "regola la velocità durante la lettura dell'assistente",
                 min: 0,
                 max: 2,
-                displayedValue: (tts.value.rate * 50).toStringAsFixed(0),
-                value: tts.value.rate,
+                displayedValue: (tts.value.getRate * 50).toStringAsFixed(0),
+                value: tts.value.getRate,
                 onChanged: (value) => tts.value.setRate(value),
               ),
 
@@ -64,8 +64,8 @@ class SettingsBody extends StatelessWidget {
                     "l'assistente è in grado di variare il suo tono, impostalo a tuo piacere",
                 min: 0,
                 max: 2,
-                value: tts.value.pitch,
-                displayedValue: (tts.value.pitch * 50).toStringAsFixed(0),
+                value: tts.value.getPitch,
+                displayedValue: (tts.value.getPitch * 50).toStringAsFixed(0),
                 onChanged: (value) => tts.value.setPitch(value),
               ),
 
