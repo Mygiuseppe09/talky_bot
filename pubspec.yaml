@@ -44,7 +44,6 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
-    - animated/audio_animation.json
     - animated/empty.json
     - animated/no_internet.json
     - animated/bot_animation.json
