@@ -50,7 +50,6 @@ flutter:
     - animated/ear.gif
     - animated/lottie_ok.json
     - images/bot.png
-    - images/empty.png
     - images/flutter.png
     - images/flaticon.png
     - images/text-to-speech.png
