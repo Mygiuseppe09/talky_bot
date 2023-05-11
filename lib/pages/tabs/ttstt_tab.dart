@@ -11,6 +11,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_apps_settings/open_apps_settings.dart';
 import 'package:open_apps_settings/settings_enum.dart';
+import 'package:progresso/progresso.dart';
 
 class TtsttBody extends StatefulWidget {
   @override
@@ -18,8 +19,8 @@ class TtsttBody extends StatefulWidget {
 }
 
 class _TtsttBodyState extends State<TtsttBody> {
-  late bool isSmartphoneConnected;
   final TextEditingController textController = TextEditingController();
+
 
   void onPlayPressed() {
     // recupero testo dal controller
@@ -41,11 +42,17 @@ class _TtsttBodyState extends State<TtsttBody> {
 
   void onStopPessed() => tts.value.stop();
 
+  void startListening() {
+    stt.value.clear();
+    stt.value.getInstance.listen(
+        onResult: (result) => stt.value.recognizedWords(result),
+        onSoundLevelChange: (level) => stt.value.setCurrentInputLevel(level),
+        );
+  }
+
   void onMicPressed(BuildContext context) {
     if (stt.value.getInstance.isAvailable) {
-      stt.value.clear();
-      stt.value.getInstance
-          .listen(onResult: (result) => stt.value.recognizedWords(result));
+      startListening();
       showDialog(
           // disattiviamo il tap fuori dal dialog per uscire
           barrierDismissible: false,
@@ -64,9 +71,9 @@ class _TtsttBodyState extends State<TtsttBody> {
                                 if (snapshot.data ==
                                     InternetConnectionStatus.disconnected)
                                   noInternetAlert(),
-                                listeningGif(),
                                 listenedText(context),
-                                SizedBox(height: 20), // separè
+                                SizedBox(height: 20),
+                                listeningMicAnimate(), // separè
                               ])
 
                             // se non sta ascoltando ma il testo è vuoto
@@ -221,12 +228,20 @@ class _TtsttBodyState extends State<TtsttBody> {
         height: 250,
       );
 
-  Widget listeningGif() => Image.asset(
-        // gif orecchio in ascolto
-        "animated/ear.gif",
-        width: 80,
-        height: 80,
-      );
+  Widget listeningMicAnimate() => Row(
+    children: [
+      Icon(Icons.mic),
+      SizedBox(width: 10),
+      Expanded(
+        child: Progresso(
+          backgroundColor: Colors.grey,
+          progressColor: Colors.black,
+          progress: stt.value.getVoiceLevelInput,
+        ),
+      ),
+      SizedBox(width: 5),
+    ],
+  );
 
   Widget confirmButton() => MyLargeElevatedButton(
       backgroundColor: Colors.green.shade200,
@@ -239,14 +254,11 @@ class _TtsttBodyState extends State<TtsttBody> {
       });
 
   Widget retryButton() => MyLargeElevatedButton(
-      backgroundColor: Colors.black,
-      foregroundColor: Colors.white,
-      text: "Ripeti",
-      onPressed: () {
-        stt.value.clear();
-        stt.value.getInstance
-            .listen(onResult: (result) => stt.value.recognizedWords(result));
-      });
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        text: "Ripeti",
+        onPressed: () => startListening(),
+      );
 
   Widget cancelButton() => MyLargeElevatedButton(
       backgroundColor: Colors.red.shade100,

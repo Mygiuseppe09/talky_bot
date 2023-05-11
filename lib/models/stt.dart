@@ -17,15 +17,23 @@ class Stt {
   String _lastWords = "";
   String _lastError = "";
   String _lastStatus = "";
+  double _inputLevel = 0.0;
 
   SpeechToText get getInstance => _sttInstance;
   String get getWords => _lastWords;
   String get getError => _lastError;
   String get getStatus => _lastStatus;
+  double get getVoiceLevelInput => _inputLevel > 2 ? _inputLevel/10 : 0;
 
   Future<void> initSpeechState() async {
     await _sttInstance.initialize(
         onError: errorListener, onStatus: statusListener);
+  }
+
+  void setCurrentInputLevel(double level) {
+    _inputLevel = level;
+
+    stt.refresh();
   }
 
   void clear() {
@@ -58,12 +66,11 @@ class Stt {
   ///
   /// Dialogs
   ///
-  
+
   static Widget _boldText(String text) => Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(text,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
-          ),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
       );
 
   static Widget _continueButton(BuildContext context) => MyLargeElevatedButton(
@@ -88,6 +95,4 @@ class Stt {
               ),
             ),
           ));
-
-  
 }
