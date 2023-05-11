@@ -9,7 +9,19 @@ class ChronologyBody extends StatefulWidget {
   State<ChronologyBody> createState() => _ChronologyBodyState();
 }
 
+
 class _ChronologyBodyState extends State<ChronologyBody> {
+
+   void copyOnClipboard(BuildContext context, int index) 
+    => FlutterClipboard.copy(chronology.value.getChronologyList.elementAt(index))
+          .then((_) =>
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                '''"${chronology.value.getChronologyList.elementAt(index)}" è stato copiato negli appunti''',
+                textAlign: TextAlign.center,
+              ))));
+                
+
   @override
   Widget build(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus(); // nascondiamo la tastiera
@@ -36,21 +48,14 @@ class _ChronologyBodyState extends State<ChronologyBody> {
       );
     } else {
       // ci sono messaggi in cronologia
-      return Scaffold(
+      return 
+      Scaffold(
         backgroundColor: Colors.white,
         body: Obx(() => ListView.separated(
               padding: EdgeInsets.all(5),
               itemCount: chronology.value.getChronologyList.length,
               itemBuilder: (_, index) => GestureDetector(
-                onTap: () {
-                  FlutterClipboard.copy(chronology.value.getChronologyList.elementAt(index))
-                      .then((_) =>
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                            '''"${chronology.value.getChronologyList.elementAt(index)}" è stato copiato negli appunti''',
-                            textAlign: TextAlign.center,
-                          ))));
-                },
+                onTap: () => copyOnClipboard(context, index),
                 child: MyCard(
                   child: Text(
                       chronology.value.getChronologyList.elementAt(index),
@@ -58,9 +63,9 @@ class _ChronologyBodyState extends State<ChronologyBody> {
                     ),
                   ),
               ),
-              
               separatorBuilder: (_,__) => SizedBox(height: 5)
-            )),
+                )
+               ),
 
         /// PULSANTE CHE CANCELLA LO STORICO
         floatingActionButton: FloatingActionButton(

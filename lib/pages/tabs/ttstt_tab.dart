@@ -7,6 +7,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:TalkyBot/models/chronology.dart';
 import 'package:TalkyBot/models/tts.dart';
 import 'package:TalkyBot/models/stt.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:open_apps_settings/open_apps_settings.dart';
 import 'package:open_apps_settings/settings_enum.dart';
 
@@ -16,6 +18,7 @@ class TtsttBody extends StatefulWidget {
 }
 
 class _TtsttBodyState extends State<TtsttBody> {
+  late bool isSmartphoneConnected;
   final TextEditingController textController = TextEditingController();
 
   void onPlayPressed() {
@@ -42,46 +45,53 @@ class _TtsttBodyState extends State<TtsttBody> {
           // disattiviamo il tap fuori dal dialog per uscire
           barrierDismissible: false,
           context: context,
-          builder: (context) => Dialog(
-                child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    // il contenuto varia in funzione del listen
-                    child: Obx(
-                      () => stt.value.getInstance.isListening &&
-                              stt.value.getStatus.contains("listening")
-                          ? Column(mainAxisSize: MainAxisSize.min, children: [
-                              listeningGif(),
-                              listenedText(context),
-                              SizedBox(height: 20), // separè
-                            ])
-
-                          // se non sta ascoltando ma il testo è vuoto
-                          : stt.value.getWords.isEmpty &&
-                                  stt.value.getStatus.contains("done")
-                              ? Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    sorryIcon(),
-                                    boldText("Non sono riuscito a sentirti..."),
-                                    retryButton(),
-                                    cancelButton(),
-                                  ],
-                                )
-
-                              // ha finito di ascoltare e l'utente ha parlato
-                              : Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    listenedText(context),
-                                    confirmButton(),
-                                    SizedBox(height: 15),
-                                    Divider(),
-                                    retryButton(),
-                                    cancelButton()
-                                  ],
-                                ),
-                    )),
-              ));
+          builder: (context) => StreamBuilder<InternetConnectionStatus>(
+            stream: InternetConnectionChecker().onStatusChange,
+            builder: (context, snapshot) {
+              return Dialog(
+                    child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        // il contenuto varia a seconda se l'app sta ascoltando
+                        child: Obx(
+                          () => stt.value.getInstance.isListening &&
+                                  stt.value.getStatus.contains("listening")
+                              ? Column(mainAxisSize: MainAxisSize.min, children: [
+                                  if (snapshot.data == InternetConnectionStatus.disconnected) 
+                                    noInternetAlert(),
+                                  listeningGif(),
+                                  listenedText(context),
+                                  SizedBox(height: 20), // separè
+                                ])
+          
+                              // se non sta ascoltando ma il testo è vuoto
+                              : stt.value.getWords.isEmpty &&
+                                      stt.value.getStatus.contains("done")
+                                  ? Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        sorryIcon(),
+                                        boldText("Non sono riuscito a sentirti..."),
+                                        retryButton(),
+                                        cancelButton(),
+                                      ],
+                                    )
+          
+                                  // ha finito di ascoltare e l'utente ha parlato
+                                  : Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        listenedText(context),
+                                        confirmButton(),
+                                        SizedBox(height: 15),
+                                        Divider(),
+                                        retryButton(),
+                                        cancelButton()
+                                      ],
+                                    ),
+                        )),
+                  );
+            }
+          ));
     } else {
       // Riconoscimento non disponibile
       showDialog(
@@ -165,6 +175,33 @@ class _TtsttBodyState extends State<TtsttBody> {
   ///
   ///
 
+  Widget noInternetAlert() => Column(
+    children: [
+      Stack(
+        children: [
+          Lottie.asset("animated/no_internet.json",
+            width: double.infinity,
+            height: 180,
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: Container(
+                height: 30,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: Center(child: Text("l'accuratezza potrebbe diminuire")),
+              )
+           ),
+        ],
+      ),
+      SizedBox(height: 30)
+    ],
+  );
+
   Widget boldText(String text) => Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(text,
@@ -180,8 +217,8 @@ class _TtsttBodyState extends State<TtsttBody> {
   Widget listeningGif() => Image.asset(
         // gif orecchio in ascolto
         "animated/ear.gif",
-        width: 120,
-        height: 120,
+        width: 80,
+        height: 80,
       );
 
   Widget confirmButton() => MyLargeElevatedButton(
@@ -214,32 +251,35 @@ class _TtsttBodyState extends State<TtsttBody> {
         stt.value.clear();
       });
 
-  Widget listenedText(BuildContext context) => 
-    Obx(() => stt.value.getWords.length > 300 
-      ? Container(
-        padding: const EdgeInsets.all(10.0),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.4,
-        child: Expanded(
-          child: SingleChildScrollView(
-            // SingleChildScrollView should be
-            // wrapped in an Expanded Widget
-            scrollDirection: Axis.vertical,
-            child: Text(
-                  stt.value.getWords,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+  Widget listenedText(BuildContext context) =>
+      Obx(() => stt.value.getWords.length > 150
+          ? Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.3,
+            padding: EdgeInsets.all(10),
+            child: Column(
+              children: [
+                Expanded(
+                        child: SingleChildScrollView(
+                      // SingleChildScrollView should be
+                      // wrapped in an Expanded Widget
+                      scrollDirection: Axis.vertical,
+                      child: Text(
+                        stt.value.getWords,
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    )
                   ),
+              ],
+            ),
           )
-         ),
-      )
-
-      : Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Text(
-            stt.value.getWords,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        )); 
+          : Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text(
+                stt.value.getWords,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ));
 
   Widget continueButton() => MyLargeElevatedButton(
         backgroundColor: Colors.green.shade200,

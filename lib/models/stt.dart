@@ -58,6 +58,20 @@ class Stt {
   ///
   /// Dialogs
   ///
+  
+  static Widget _boldText(String text) => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(text,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+          ),
+      );
+
+  static Widget _continueButton(BuildContext context) => MyLargeElevatedButton(
+        backgroundColor: Colors.green.shade200,
+        foregroundColor: Colors.green.shade900,
+        text: "CONTINUA",
+        onPressed: () => Navigator.pop(context),
+      );
 
   static void showPermissionGrantedDialog(BuildContext context) => showDialog(
       context: context,
@@ -75,16 +89,5 @@ class Stt {
             ),
           ));
 
-  static Widget _boldText(String text) => Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(text,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-      );
-
-  static Widget _continueButton(BuildContext context) => MyLargeElevatedButton(
-        backgroundColor: Colors.green.shade200,
-        foregroundColor: Colors.green.shade900,
-        text: "CONTINUA",
-        onPressed: () => Navigator.pop(context),
-      );
+  
 }

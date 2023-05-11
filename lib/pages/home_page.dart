@@ -35,6 +35,22 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  Widget appBarTitle() 
+    => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("TalkyBot", style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                ),
+          ),
+          Lottie.asset("animated/bot_animation.json",
+            width: 50,
+            height: 50,
+          ),
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
     return FocusDetector(
@@ -65,23 +81,7 @@ class _HomePageState extends State<HomePage> {
               appBar: AppBar(
                 centerTitle: true,
                 toolbarHeight: 80,
-                title: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "TalkyBot",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Lottie.asset(
-                      "animated/bot_animation.json",
-                      width: 50,
-                      height: 50,
-                    ),
-                  ],
-                ),
+                title: appBarTitle(),
                 bottom: TabBar(
                   indicatorColor: Colors.black,
                   tabs: [

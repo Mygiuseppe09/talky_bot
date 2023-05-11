@@ -17,8 +17,10 @@ dependencies:
   open_apps_settings: ^0.0.4
   focus_detector_v2: ^3.0.0+2
   lottie: ^2.3.2
+  internet_connection_checker: ^1.0.0+1
   flutter:
     sdk: flutter
+  
 
 
 dev_dependencies:
@@ -43,6 +45,7 @@ flutter_launcher_icons:
 flutter:
   uses-material-design: true
   assets:
+    - animated/no_internet.json
     - animated/bot_animation.json
     - animated/ear.gif
     - animated/lottie_ok.json
