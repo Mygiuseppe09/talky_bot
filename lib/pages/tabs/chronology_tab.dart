@@ -3,6 +3,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:TalkyBot/models/chronology.dart';
+import 'package:lottie/lottie.dart';
 
 class ChronologyBody extends StatefulWidget {
   @override
@@ -32,15 +33,17 @@ class _ChronologyBodyState extends State<ChronologyBody> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                "images/empty.png",
-                color: Colors.black54,
-                scale: 3,
+              Lottie.asset(
+                "animated/empty.json",
               ),
               SizedBox(height: 30),
               Text(
                 "Cronologia vuota",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20, 
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 90, 90, 90)
+                ),
               ),
             ],
           ),

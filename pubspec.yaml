@@ -41,10 +41,10 @@ flutter_launcher_icons:
   adaptive_icon_foreground: "images/logo_android.png"
   
   
-  
 flutter:
   uses-material-design: true
   assets:
+    - animated/empty.json
     - animated/no_internet.json
     - animated/bot_animation.json
     - animated/ear.gif

@@ -31,6 +31,13 @@ class Tts {
     tts.refresh();
   }
 
+  void speakEmptyError() {
+    _ttsInstance.setVolume(1);
+    _ttsInstance.setPitch(1);
+    _ttsInstance.setRate(1);
+    _ttsInstance.speak("scrivi prima qualcosa!");
+  }
+
   void play(String text) {
     _isPlaying = true;
     tts.refresh();
