@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:TalkyBot/components/my_icon_button.dart';
 import 'package:TalkyBot/components/my_large_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -18,23 +20,42 @@ class TtsttBody extends StatefulWidget {
   State<TtsttBody> createState() => _TtsttBodyState();
 }
 
+/// il testo "corrente" non è all'interno della classe "State" perchè,
+/// è si una variabile di stato, ma vogliamo che la sua informazione permanga
+/// anche quando l'intero tab è rimosso dal "tree"
+String currentText = '';
+
 class _TtsttBodyState extends State<TtsttBody> {
   final TextEditingController textController = TextEditingController();
 
+  @override
+  void initState() { // recuperiamo il testo che l'utente stava scrivendo
+    /// essendo questa pagina un tab,
+    /// è chiamato ogni qualvolta il tab è visualizzato
+    textController.text = currentText;
+    super.initState();
+  }
+
+  @override
+  void dispose() { // salviamo il testo che l'utente sta scrivendo
+    /// è chiamato ogni qualvolta il tab NON è visualizzato
+    currentText = textController.text;
+    super.dispose();
+  }
 
   void onPlayPressed() {
     // recupero testo dal controller
-    final String text = textController.text.trim();
+    currentText = textController.text.trim();
 
-    if (text.isEmpty) {
+    if (currentText.isEmpty) {
       // l'utente ha tappato play senza che ci sia alcun testo
       tts.value.speakEmptyError();
     } else {
-      tts.value.play(text);
+      tts.value.play(currentText);
 
       // salvare il testo nella cronologia
-      if (!chronology.value.getChronologyList.contains(text)) {
-        chronology.value.addNew(text);
+      if (!chronology.value.getChronologyList.contains(currentText)) {
+        chronology.value.addNew(currentText);
         GetStorage().write("chronology", chronology.value.getChronologyList);
       }
     }
@@ -45,9 +66,9 @@ class _TtsttBodyState extends State<TtsttBody> {
   void startListening() {
     stt.value.clear();
     stt.value.getInstance.listen(
-        onResult: (result) => stt.value.recognizedWords(result),
-        onSoundLevelChange: (level) => stt.value.setCurrentInputLevel(level),
-        );
+      onResult: (result) => stt.value.recognizedWords(result),
+      onSoundLevelChange: (level) => stt.value.setCurrentInputLevel(level),
+    );
   }
 
   void onMicPressed(BuildContext context) {
@@ -229,19 +250,19 @@ class _TtsttBodyState extends State<TtsttBody> {
       );
 
   Widget listeningMicAnimate() => Row(
-    children: [
-      Icon(Icons.mic),
-      SizedBox(width: 10),
-      Expanded(
-        child: Progresso(
-          backgroundColor: Colors.grey,
-          progressColor: Colors.black,
-          progress: stt.value.getVoiceLevelInput,
-        ),
-      ),
-      SizedBox(width: 5),
-    ],
-  );
+        children: [
+          Icon(Icons.mic),
+          SizedBox(width: 10),
+          Expanded(
+            child: Progresso(
+              backgroundColor: Colors.grey,
+              progressColor: Colors.black,
+              progress: stt.value.getVoiceLevelInput,
+            ),
+          ),
+          SizedBox(width: 5),
+        ],
+      );
 
   Widget confirmButton() => MyLargeElevatedButton(
       backgroundColor: Colors.green.shade200,
