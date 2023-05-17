@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:TalkyBot/components/my_icon_button.dart';
 import 'package:TalkyBot/components/my_large_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -16,36 +14,36 @@ import 'package:open_apps_settings/settings_enum.dart';
 import 'package:progresso/progresso.dart';
 
 class TtsttBody extends StatefulWidget {
+  const TtsttBody({Key? key}) : super(key: key);
+
   @override
   State<TtsttBody> createState() => _TtsttBodyState();
 }
 
-/// il testo "corrente" non è all'interno della classe "State" perchè,
-/// è si una variabile di stato, ma vogliamo che la sua informazione permanga
-/// anche quando l'intero tab è rimosso dal "tree"
-String currentText = '';
+/// l'ultimo testo non è all'interno della classe "State" perchè
+/// vogliamo che la sua informazione permanga
+String lastText = '';
 
 class _TtsttBodyState extends State<TtsttBody> {
   final TextEditingController textController = TextEditingController();
 
   @override
-  void initState() { // recuperiamo il testo che l'utente stava scrivendo
-    /// essendo questa pagina un tab,
-    /// è chiamato ogni qualvolta il tab è visualizzato
-    textController.text = currentText;
+  void initState() {
     super.initState();
+
+    textController.text = lastText;
   }
 
   @override
-  void dispose() { // salviamo il testo che l'utente sta scrivendo
-    /// è chiamato ogni qualvolta il tab NON è visualizzato
-    currentText = textController.text;
+  void dispose() {
     super.dispose();
+
+    lastText = textController.text;
   }
 
   void onPlayPressed() {
     // recupero testo dal controller
-    currentText = textController.text.trim();
+    final String currentText = textController.text.trim();
 
     if (currentText.isEmpty) {
       // l'utente ha tappato play senza che ci sia alcun testo

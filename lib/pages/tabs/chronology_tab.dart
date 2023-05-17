@@ -6,6 +6,8 @@ import 'package:TalkyBot/models/chronology.dart';
 import 'package:lottie/lottie.dart';
 
 class ChronologyBody extends StatefulWidget {
+  const ChronologyBody({Key? key}) : super(key: key);
+  
   @override
   State<ChronologyBody> createState() => _ChronologyBodyState();
 }
